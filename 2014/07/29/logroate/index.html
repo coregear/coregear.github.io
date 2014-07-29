@@ -3,20 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | OPS_BLOG</title>
+  <title>OPS_BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in trobuleshooting or you can ask me on GitHub.
-Quick">
+  <meta name="description" content="使用logrotate处理应用日志
+参考：http://huoding.com/2013/04/21/246
+1234567891011vi /etc/logrotate.d/nginx/data/logs/nginx/*.log {    daily    dateext    compress    rotate 90    sharedscripts    postrotate">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://coregear.github.io/2014/07/29/hello-world/">
+<meta property="og:title" content="OPS_BLOG">
+<meta property="og:url" content="http://coregear.github.io/2014/07/29/logroate/">
 <meta property="og:site_name" content="OPS_BLOG">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in trobuleshooting or you can ask me on GitHub.
-Quick">
+<meta property="og:description" content="使用logrotate处理应用日志
+参考：http://huoding.com/2013/04/21/246
+1234567891011vi /etc/logrotate.d/nginx/data/logs/nginx/*.log {    daily    dateext    compress    rotate 90    sharedscripts    postrotate">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in trobuleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="OPS_BLOG">
+<meta name="twitter:description" content="使用logrotate处理应用日志
+参考：http://huoding.com/2013/04/21/246
+1234567891011vi /etc/logrotate.d/nginx/data/logs/nginx/*.log {    daily    dateext    compress    rotate 90    sharedscripts    postrotate">
 
   
   
@@ -70,53 +73,41 @@ Quick">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-logroate" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/07/29/hello-world/" class="article-date">
-  <time datetime="2014-07-29T08:38:43.000Z" itemprop="datePublished">Jul 29 2014</time>
+    <a href="/2014/07/29/logroate/" class="article-date">
+  <time datetime="2014-07-29T08:38:11.000Z" itemprop="datePublished">Jul 29 2014</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Hello World
-    </h1>
-  
-
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2>
-<h3 id="Create_a_new_post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+        <h2 id="使用logrotate处理应用日志">使用logrotate处理应用日志</h2>
+<p>参考：<a href="http://huoding.com/2013/04/21/246" target="_blank" rel="external">http://huoding.com/2013/04/21/246</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">vi /etc/logrotate.d/nginx</div><div class="line">/data/logs/nginx/*.log {</div><div class="line">    daily</div><div class="line">    dateext</div><div class="line">    compress</div><div class="line">    rotate <span class="number">90</span></div><div class="line">    sharedscripts</div><div class="line">    postrotate</div><div class="line">        kill -USR1 `cat /usr/local/nginx/logs/nginx.pid`</div><div class="line">    endscript</div><div class="line">}</div></pre></td></tr></table></figure>
 
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>dateext</strong>       Archive  old versions of log files adding a daily extension like YYYYMMDD instead of simply adding a number.</p>
+</li>
+<li><p><strong>sharedscripts</strong>     Normally, prescript and postscript scripts are run for each log which is rotated and the absolute path tothe log file is passed as first argument to the script. That means a single script may be run multiple times for log file entries which match multiple files (such as the /var/log/news/* example).  If  sharedscripts  is  specified,  the scripts are only run once, no matter how many logs match the wildcarded pattern, and whole pattern is passed to them.  However, if none of the logs in the pattern require rotating,the  scripts  will not be run at all. This option overrides the nosharedscripts option and implies create option.</p>
+</li>
+</ul>
+<p>如果你等不及CRON，可以通过如下命令来手动执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">logrotate <span class="operator">-f</span> /etc/logrotate.d/nginx</div></pre></td></tr></table></figure>
 
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>当然，正式执行前最好通过Debug选项来验证一下，这对调试也很重要：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">logrotate <span class="operator">-d</span> <span class="operator">-f</span> /etc/logrotate.d/nginx</div></pre></td></tr></table></figure>
 
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://coregear.github.io/2014/07/29/hello-world/" data-id="99fixrsi1ydrs1s9" class="article-share-link">Share</a>
+      <a data-url="http://coregear.github.io/2014/07/29/logroate/" data-id="lbo60x1q4uizxrnl" class="article-share-link">Share</a>
       
-        <a href="http://coregear.github.io/2014/07/29/hello-world/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://coregear.github.io/2014/07/29/logroate/#disqus_thread" class="article-comment-link">Comments</a>
       
       
     </footer>
@@ -125,20 +116,15 @@ Quick">
     
 <nav id="article-nav">
   
-    <a href="/2014/07/29/testing/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2014/07/29/nginx_lua_module/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          testing
+          (no title)
         
       </div>
     </a>
   
-  
-    <a href="/2014/07/29/nginx_lua_module/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title"></div>
-    </a>
   
 </nav>
 
@@ -238,7 +224,7 @@ Quick">
 <script>
   var disqus_shortname = 'coregeargithubio';
   
-  var disqus_url = 'http://coregear.github.io/2014/07/29/hello-world/';
+  var disqus_url = 'http://coregear.github.io/2014/07/29/logroate/';
   
   (function(){
     var dsq = document.createElement('script');

@@ -163,6 +163,94 @@
 
 
   
+    <article id="post-nginx_lua_module" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/29/nginx_lua_module/" class="article-date">
+  <time datetime="2014-07-29T08:38:11.000Z" itemprop="datePublished">Jul 29 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="使用nginx_lua_module提升websever的灵活性">使用nginx_lua_module提升websever的灵活性</h2>
+<h3 id="安装：">安装：</h3>
+<ol>
+<li>安装lua-jit</li>
+<li>下载ngx_devel_kit</li>
+<li>下载lua-nginx-module</li>
+<li>指定参数编译安装nginx</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /usr/src</div><div class="line">wget http://luajit.org/download/LuaJIT-<span class="number">2.0</span>.<span class="number">2</span>.tar.gz</div><div class="line">tar zxvf LuaJIT-<span class="number">2.0</span>.<span class="number">2</span>.tar.gz</div><div class="line"><span class="built_in">cd</span> LuaJIT-<span class="number">2.0</span>.<span class="number">2</span></div><div class="line">make</div><div class="line">make install PREFIX=/home/myself/lj2</div><div class="line"><span class="built_in">cd</span> ..</div><div class="line"></div><div class="line">wget https://github.com/simpl/ngx_devel_kit/archive/v0.<span class="number">2.19</span>.tar.gz</div><div class="line">wget https://github.com/chaoslawful/lua-nginx-module/archive/v0.<span class="number">9.4</span>.tar.gz</div><div class="line">tar zxvf v0.<span class="number">2.19</span>.tar.gz</div><div class="line">tar zxvf v0.<span class="number">9.4</span>.tar.gz</div><div class="line"></div><div class="line"><span class="keyword">export</span> LUAJIT_LIB=/usr/local/luajit/lib</div><div class="line"><span class="keyword">export</span> LUAJIT_INC=/usr/local/luajit/include/luajit-<span class="number">2.0</span></div><div class="line"></div><div class="line">./configure --prefix=/usr/local/nginx --add-module=/usr/src/ngx_devel_kit-<span class="number">0.2</span>.<span class="number">19</span> --add-module=/usr/src/lua-nginx-module-<span class="number">0.9</span>.<span class="number">4</span></div><div class="line">make -j2</div><div class="line">make install</div></pre></td></tr></table></figure>
+
+<h3 id="使用：">使用：</h3>
+<p>lua语法：<a href="http://coolshell.cn/articles/10739.html" target="_blank" rel="external">http://coolshell.cn/articles/10739.html</a></p>
+<p>nginx教程：<a href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html" target="_blank" rel="external">http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html</a></p>
+<p>测试：<br><a href="http://10.70.56.146/test.com:8008/statuses/public_timeline.json?source=88882523327593" target="_blank" rel="external">http://10.70.56.146/test.com:8008/statuses/public_timeline.json?source=88882523327593</a></p>
+<p>实例：<a href="http://www.cnblogs.com/wenbiao/p/3227998.html" target="_blank" rel="external">http://www.cnblogs.com/wenbiao/p/3227998.html</a></p>
+<p>手册：<a href="http://17173ops.com/2013/11/01/17173-ngx-lua-manual.shtml" target="_blank" rel="external">http://17173ops.com/2013/11/01/17173-ngx-lua-manual.shtml</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://coregear.github.io/2014/07/29/nginx_lua_module/" data-id="apv635bjsaan8p0l" class="article-share-link">Share</a>
+      
+        <a href="http://coregear.github.io/2014/07/29/nginx_lua_module/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-logroate" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/29/logroate/" class="article-date">
+  <time datetime="2014-07-29T08:38:11.000Z" itemprop="datePublished">Jul 29 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="使用logrotate处理应用日志">使用logrotate处理应用日志</h2>
+<p>参考：<a href="http://huoding.com/2013/04/21/246" target="_blank" rel="external">http://huoding.com/2013/04/21/246</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">vi /etc/logrotate.d/nginx</div><div class="line">/data/logs/nginx/*.log {</div><div class="line">    daily</div><div class="line">    dateext</div><div class="line">    compress</div><div class="line">    rotate <span class="number">90</span></div><div class="line">    sharedscripts</div><div class="line">    postrotate</div><div class="line">        kill -USR1 `cat /usr/local/nginx/logs/nginx.pid`</div><div class="line">    endscript</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>dateext</strong>       Archive  old versions of log files adding a daily extension like YYYYMMDD instead of simply adding a number.</p>
+</li>
+<li><p><strong>sharedscripts</strong>     Normally, prescript and postscript scripts are run for each log which is rotated and the absolute path tothe log file is passed as first argument to the script. That means a single script may be run multiple times for log file entries which match multiple files (such as the /var/log/news/* example).  If  sharedscripts  is  specified,  the scripts are only run once, no matter how many logs match the wildcarded pattern, and whole pattern is passed to them.  However, if none of the logs in the pattern require rotating,the  scripts  will not be run at all. This option overrides the nosharedscripts option and implies create option.</p>
+</li>
+</ul>
+<p>如果你等不及CRON，可以通过如下命令来手动执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">logrotate <span class="operator">-f</span> /etc/logrotate.d/nginx</div></pre></td></tr></table></figure>
+
+<p>当然，正式执行前最好通过Debug选项来验证一下，这对调试也很重要：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">logrotate <span class="operator">-d</span> <span class="operator">-f</span> /etc/logrotate.d/nginx</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://coregear.github.io/2014/07/29/logroate/" data-id="lbo60x1q4uizxrnl" class="article-share-link">Share</a>
+      
+        <a href="http://coregear.github.io/2014/07/29/logroate/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
   
 </section>
         
@@ -178,7 +266,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -195,6 +283,14 @@
         
           <li>
             <a href="/2014/07/29/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2014/07/29/nginx_lua_module/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2014/07/29/logroate/">(no title)</a>
           </li>
         
       </ul>
